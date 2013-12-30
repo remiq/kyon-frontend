@@ -1,0 +1,26 @@
+body {
+    background: url('wallpaper_dark.jpg');
+}
+#sidebar {
+    background: url('old_moon.png') repeat;
+    padding: 5px;
+}
+#sidebar textarea {
+    width: 100%;
+}
+#sidebar input[type="text"] {
+    width: 100%;
+}
+.record {
+    padding: 10px;
+
+}
+.record-row0 {
+    background: url('old_moon.png') repeat;
+}
+.record-tag {
+    text-align: center;
+}
+.search-form {
+    height: 35px;
+}

@@ -3,6 +3,7 @@
 <head>
     <title>Kyon</title>
     <link rel="stylesheet" href="vendor/uikit/dist/css/uikit.min.css" />
+    <link id="custom-css" rel="stylesheet" href="fake/style1.css" />
     <script data-main="/app/main" src="/vendor/requirejs/require.js"></script>
 </head>
 <body>
@@ -16,36 +17,102 @@
         </div>
         <% }); %>
     </script>
-    <style>
-        body {
-            background: url('fake/wallpaper_dark.jpg');
-        }
-    </style>
+    <script id="template-item-main" type="template">
+        <div>
+            <img src="<%= url %>" alt="" />
+        </div>
+    </script>
+    <script id="template-item-sidebar" type="template">
+        <h2>Item: <%= id %></h2>
+        <p>
+            <b>Source:</b> <%= source %>
+        </p>
+
+        <h2>Tags</h2>
+        <ul>
+            <% _.each(tags, function(tag) { %>
+            <li><a href="#tag/<%= tag.id %>"><%= tag.name%></a></li>
+            <% }); %>
+        </ul>
+        <form class="uk-form" onsubmit="return window.App.onFormTag(this);">
+            <input type="text" name="tag" onchange="return window.App.onChangeTag(this);"><br>
+            <input type="hidden" name="item-id" value="<%= id %>" />
+            <input type="submit" value="Tag" class="uk-button" />
+        </form>
+        <h2>Comments</h2>
+        <% _.each(comments, function(comment) { %>
+        <p><a href="#user/<%= comment.userId %>"><%= comment.userName %></a>
+            - <%= comment.date %><br>
+            <%= comment.comment %>
+        </p>
+        <% }); %>
+        <form class="uk-form" onsubmit="return window.App.onFormTag(this);">
+            <textarea name="comment"></textarea><br>
+            <input type="hidden" name="item-id" value="<%= id %>" />
+            <input type="submit" value="Comment" class="uk-button" />
+        </form>
+    </script>
+    <script id="template-report-main" type="template">
+        <div class="uk-grid">
+            <% var i = 0 %>
+            <% _.each(records, function(record) { %>
+            <div class="uk-width-1-1 record record-row<%= (i++)%2  %>">
+                <div class="record-header" style="float: left; width: 200px;">
+                    <% if (record.type === "item" || record.type === "change") { %>
+                        <div class="uk-thumbnail">
+                            <a href="#item/<%= record.recordId %>">
+                                <img src="<%= record.recordString %>" alt="">
+                                <div class="uk-thumbnail-caption"><%= record.type %></div>
+                            </a>
+                        </div>
+                    <% } else if (record.type === "tag") { %>
+                        <div class="record-tag">
+                            <a href="#tag/<%= record.recordId %>"><%= record.recordString %></a>
+                        </div>
+                    <% } %>
+                </div>
+                <div class="record-text" style="float: left;">
+                    <% if (record.type === "change") { %>
+                        <% _.each(record.tags, function(tag) { %>
+                            <a href="#tag/<%= tag.id %>"><%= tag.name %></a>
+                        <% }); %>
+                    <% } else { %>
+                        <a href="#user/<%= record.userId %>"><%= record.userName %></a> - <%= record.date %><br>
+                        <%= record.comment %>
+                    <% } %>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </script>
     <div class="uk-grid">
         <div id="topbar" class="uk-width-1-1">
-            <div class="uk-float-left">
-                <button class="uk-button" data-uk-offcanvas="{target: '#sidebar'}">Menu</button>
+            <div class="uk-float-right" style="margin-right: 20px;">
+                <button id="sidebar-button" class="uk-button" data-uk-offcanvas="{target: '#offcanvas'}">Menu</button>
             </div>
             <div class="uk-float-right" style="padding: 10px;">
-                <form>
+                <form class="search-form uk-form" onsubmit="return window.App.onFormSearch(this);">
                     <fieldset>
-                        <input type="text" name="q" class="uk-form-width-large uk-form-large" />
+                        <input type="text" name="q" class="uk-form-width-large" onchange="return window.App.onFormTag(this);" />
                         <input type="submit" class="uk-button" value="Search" />
                     </fieldset>
                 </form>
-                <a class="uk-button" href="#">Browse</a>
-                <a class="uk-button" href="#comments">Comments</a>
-                <a class="uk-button" href="#recent">Recently tagged</a>
-                <a class="uk-button" href="#fav">Favorites</a>
-                <a class="uk-button" href="#logout">Logout</a>
-                <a class="uk-button" href="#upload">Upload</a>
+                <a class="uk-button" href="#"><i class="uk-icon-table"></i> Browse</a>
+                <a class="uk-button" href="#comments"><i class="uk-icon-comments"></i> Comments</a>
+                <a class="uk-button" href="#recent"><i class="uk-icon-rss"></i> Recently tagged</a>
+                <a class="uk-button" href="#fav"><i class="uk-icon-heart"></i> Favorites</a>
+                <a class="uk-button" href="#upload"><i class="uk-icon-upload"></i> Upload</a>
+            </div>
+            <div class="uk-float-right">
+                <a class="uk-button" onclick="window.App.switchCSS('fake/style1.css');">CSS1</a>
+                <a class="uk-button" onclick="window.App.switchCSS('fake/style2.css');">CSS2</a>
             </div>
             <div class="uk-clearfix"></div>
         </div>
         <div id="main" class="uk-width-1-1"></div>
     </div>
-    <div id="sidebar" class="uk-offcanvas">
-        <div class="uk-offcanvas-bar">
+    <div id="offcanvas" class="uk-offcanvas">
+        <div id="sidebar" class="uk-offcanvas-bar uk-offcanvas-bar-flip">
             test
         </div>
     </div>

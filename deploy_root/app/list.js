@@ -20,10 +20,13 @@ define(function(require, exports, module) {
         }
     });
 
+
+
     module.exports.ListModel = ListModel;
     module.exports.ListView = ListView;
-    module.exports.init = function() {
+    module.exports.init = function(url) {
         var listModel = new ListModel();
+        listModel.url = url;
         var v = new ListView({
             el: '#main'
             ,model: listModel
@@ -31,6 +34,6 @@ define(function(require, exports, module) {
         v.model.fetch();
         window.App.listModel = listModel;
         window.App.listView = v;
-    }
+    };
 
 });
