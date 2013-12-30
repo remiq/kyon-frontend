@@ -15,6 +15,11 @@ define(function(require, exports, module) {
         // XXX: write to localStorage
     };
 
+    app.emptySidebar = function() {
+        $('#sidebar').html('');
+        $('#sidebar-button').html('<i class="uk-icon-cog"></i>');
+    }
+
     app.onChangeTag = function(form) {
         // XXX: autocomplete for tag form
     }

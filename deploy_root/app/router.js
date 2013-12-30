@@ -13,26 +13,28 @@ define(function(require, exports, module) {
             ,"fav": "fav"
         }
         ,index: function() {
+            window.App.emptySidebar();
             var List = require("list");
-            List.init('fake/items.json');
-            $('#sidebar-button').html('<i class="uk-icon-cog"></i>');
+            List.init('/frontend/browse.json');
         }
         ,item: function(item) {
             var Item = require("item");
-            Item.init(item);
+            Item.init('/frontend/item.json?id=' + item);
         }
         ,comments: function() {
+            window.App.emptySidebar();
             var Report = require("report");
             Report.init("fake/comments.json");
         }
         ,recent: function() {
+            window.App.emptySidebar();
             var Report = require("report");
             Report.init("fake/recent.json");
         }
         ,fav: function() {
+            window.App.emptySidebar();
             var List = require("list");
             List.init('fake/items.json');
-            $('#sidebar-button').html('<i class="uk-icon-cog"></i>');
         }
 
     });

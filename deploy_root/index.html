@@ -4,7 +4,7 @@
     <title>Kyon</title>
     <link rel="stylesheet" href="vendor/uikit/dist/css/uikit.min.css" />
     <link id="custom-css" rel="stylesheet" href="fake/style1.css" />
-    <script data-main="/app/main" src="/vendor/requirejs/require.js"></script>
+    <script data-main="app/main" src="vendor/requirejs/require.js"></script>
 </head>
 <body>
     <script id="template-list" type="template">
@@ -18,16 +18,24 @@
         <% }); %>
     </script>
     <script id="template-item-main" type="template">
-        <div>
+        <div class="the-content">
             <img src="<%= url %>" alt="" />
         </div>
     </script>
     <script id="template-item-sidebar" type="template">
-        <h2>Item: <%= id %></h2>
+        <h2>Item: <a href="/img/<%= id %>.html"><%= id %></a></h2>
         <p>
             <b>Source:</b> <%= source %>
         </p>
 
+        <% if (fav && fav.length > 0) { %>
+            <h2>Tags</h2>
+            <ul>
+            <% _.each(fav, function(f) { %>
+                <li><a href="#user/<%= f.userId %>"><%= f.userName %></a></li>
+            <% }); %>
+            </ul>
+        <% } %>
         <h2>Tags</h2>
         <ul>
             <% _.each(tags, function(tag) { %>

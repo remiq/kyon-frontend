@@ -18,10 +18,10 @@ define(function(require, exports, module) {
         }
         ,renderSidebarButton: function() {
             var info = [];
-            if (this.model.get('comments').length > 0) {
+            if (this.model.get('comments') && this.model.get('comments').length > 0) {
                 info.push('<i class="uk-icon-comments"></i>' + this.model.get('comments').length);
             }
-            if (this.model.get('fav').length > 0) {
+            if (this.model.get('fav') && this.model.get('fav').length > 0) {
                 info.push('<i class="uk-icon-heart"></i>' + this.model.get('fav').length);
             }
             if (info.length === 0) {
@@ -38,12 +38,12 @@ define(function(require, exports, module) {
 
     module.exports.ItemModel = ItemModel;
     module.exports.ItemView = ItemView;
-    module.exports.init = function(itemId) {
+    module.exports.init = function(url) {
         var itemModel = new ItemModel();
+        itemModel.url = url;
         var v = new ItemView({
             el: '#main'
             ,model: itemModel
-            ,url: 'fake/item.json?id=' + itemId
         });
         v.model.fetch();
         window.App.itemModel = itemModel;
