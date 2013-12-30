@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kyon</title>
+    <link rel="stylesheet" href="vendor/uikit/dist/css/uikit.min.css" />
+    <script data-main="/app/main" src="/vendor/requirejs/require.js"></script>
+</head>
+<body>
+    <script id="template-list" type="template">
+        <% _.each(items, function(item) { %>
+        <div class="uk-thumbnail">
+            <a href="#item/<%= item.id %>">
+                <img src="<%= item.url %>" alt="">
+                <div class="uk-thumbnail-caption"><%= item.module %></div>
+            </a>
+        </div>
+        <% }); %>
+    </script>
+    <style>
+        body {
+            background: url('fake/wallpaper_dark.jpg');
+        }
+    </style>
+    <div class="uk-grid">
+        <div id="topbar" class="uk-width-1-1">
+            <div class="uk-float-left">
+                <button class="uk-button" data-uk-offcanvas="{target: '#sidebar'}">Menu</button>
+            </div>
+            <div class="uk-float-right" style="padding: 10px;">
+                <form>
+                    <fieldset>
+                        <input type="text" name="q" class="uk-form-width-large uk-form-large" />
+                        <input type="submit" class="uk-button" value="Search" />
+                    </fieldset>
+                </form>
+                <a class="uk-button" href="#">Browse</a>
+                <a class="uk-button" href="#comments">Comments</a>
+                <a class="uk-button" href="#recent">Recently tagged</a>
+                <a class="uk-button" href="#fav">Favorites</a>
+                <a class="uk-button" href="#logout">Logout</a>
+                <a class="uk-button" href="#upload">Upload</a>
+            </div>
+            <div class="uk-clearfix"></div>
+        </div>
+        <div id="main" class="uk-width-1-1"></div>
+    </div>
+    <div id="sidebar" class="uk-offcanvas">
+        <div class="uk-offcanvas-bar">
+            test
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{
+    "isLogged": true
+    ,"currencies": [{
+        "id": "btc"
+        ,"name": "BTC"
+        ,"balance": 123
+        ,"exchanges":[{
+            "id": "ltc"
+            ,"name": "LTC"
+            },{
+            "id": "doge"
+            ,"name": "DOGE"
+            },{
+            "id": "amber"
+            ,"name": "AMBER"
+        }]
+        },{
+        "id": "ltc"
+        ,"name": "LTC"
+        ,"balance": 11.14
+        ,"exchanges":[{
+            "id": "btc"
+            ,"name": "BTC"
+        },{
+            "id": "doge"
+            ,"name": "DOGE"
+        },{
+            "id": "amber"
+            ,"name": "AMBER"
+        }]
+    }]
+}
